@@ -27,20 +27,14 @@ function updateStatus(message, mark = currentPlayer) {
 function handleBoardClick(event) {
   const cell = event.target.closest(".cell");
 
-  // Click was not on one of the 9 cells
   if (!cell) return;
 
   const index = Number(cell.dataset.index);
 
-  // Game has already ended
   if (!gameActive) return;
-
-  // Cell is already occupied
   if (board[index] !== "") return;
 
-  // Place move
   board[index] = currentPlayer;
-
   cell.textContent = currentPlayer;
   cell.dataset.mark = currentPlayer;
 
@@ -48,7 +42,6 @@ function handleBoardClick(event) {
 }
 
 function checkGameResult() {
-  // Check winner
   for (const [a, b, c] of winningCombinations) {
     if (board[a] !== "" && board[a] === board[b] && board[a] === board[c]) {
       gameActive = false;
@@ -65,7 +58,6 @@ function checkGameResult() {
     }
   }
 
-  // Draw ONLY after all 9 cells are occupied
   const movesPlayed = board.filter((value) => value !== "").length;
 
   if (movesPlayed === 9) {
@@ -74,7 +66,6 @@ function checkGameResult() {
     return;
   }
 
-  // Continue game
   currentPlayer = currentPlayer === "X" ? "O" : "X";
 
   updateStatus(`Player ${currentPlayer}'s turn`, currentPlayer);
@@ -89,23 +80,15 @@ function restartGame() {
     cell.textContent = "";
     cell.classList.remove("win");
     delete cell.dataset.mark;
-
-    // IMPORTANT:
-    // Never disable the cells.
     cell.disabled = false;
   });
 
   updateStatus("Player X's turn", "X");
 }
 
-// One click listener for the entire board.
-// This guarantees every cell is handled consistently.
 boardElement.addEventListener("click", handleBoardClick);
-
-// Restart
 restartButton.addEventListener("click", restartGame);
 
-// Theme
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem("ttt-theme", theme);

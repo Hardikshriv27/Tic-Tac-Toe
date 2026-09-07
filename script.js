@@ -4,7 +4,7 @@ const status = document.getElementById("status");
 const restartButton = document.getElementById("restart");
 const themeToggle = document.getElementById("theme-toggle");
 
-let board = ["", "", "", "", "", "", "", ""];
+let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let gameActive = true;
 
@@ -72,7 +72,7 @@ function checkGameResult() {
 }
 
 function restartGame() {
-  board = ["", "", "", "", "", "", "", ""];
+  board = ["", "", "", "", "", "", "", "", ""];
   currentPlayer = "X";
   gameActive = true;
 

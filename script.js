@@ -82,7 +82,6 @@ cells.forEach((cell) => {
 restartButton.addEventListener("click", restartGame);
 status.dataset.mark = "X";
 
-// Theme handling
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem("ttt-theme", theme);

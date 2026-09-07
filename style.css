@@ -71,13 +71,17 @@ body {
   padding: 0 8px;
   justify-content: space-between;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  z-index: 50;
+  isolation: isolate;
 }
 
 .theme-toggle__icon {
+  position: relative;
   font-size: 13px;
   line-height: 1;
   color: var(--text-dim);
   z-index: 1;
+  pointer-events: none;
 }
 
 .theme-toggle__knob {
@@ -90,6 +94,7 @@ body {
   background: linear-gradient(160deg, var(--x-color), #1c3f80);
   box-shadow: 0 0 12px var(--glow-blue);
   transition: transform 0.3s ease, background 0.3s ease;
+  pointer-events: none;
 }
 
 [data-theme="light"] .theme-toggle__knob {
@@ -99,6 +104,8 @@ body {
 }
 
 .game {
+  position: relative;
+  z-index: 10;
   width: 100%;
   max-width: 420px;
   padding: 44px 36px 36px;
@@ -163,6 +170,8 @@ h1 {
 }
 
 .board {
+  position: relative;
+  z-index: 20;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
@@ -170,6 +179,8 @@ h1 {
 }
 
 .cell {
+  position: relative;
+  z-index: 1;
   aspect-ratio: 1 / 1;
   border-radius: 18px;
   background: var(--glass);
@@ -185,6 +196,7 @@ h1 {
   align-items: center;
   justify-content: center;
   padding: 0;
+  pointer-events: auto;
   transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 

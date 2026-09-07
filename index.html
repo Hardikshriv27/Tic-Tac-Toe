@@ -1,39 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tic-Tac-Toe</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark or light mode">
-    <span class="theme-toggle__icon theme-toggle__icon--sun">☀</span>
-    <span class="theme-toggle__icon theme-toggle__icon--moon">☾</span>
-    <span class="theme-toggle__knob"></span>
-  </button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <button
+      class="theme-toggle"
+      id="theme-toggle"
+      aria-label="Toggle dark or light mode"
+    >
+      <span class="theme-toggle__icon theme-toggle__icon--sun">☀</span>
+      <span class="theme-toggle__icon theme-toggle__icon--moon">☾</span>
+      <span class="theme-toggle__knob"></span>
+    </button>
 
-  <main class="game">
-    <h1>Tic-Tac-Toe</h1>
-    <p class="subtitle">THINK · PLAY · REPEAT</p>
+    <main class="game">
+      <h1>Tic-Tac-Toe</h1>
+      <p class="subtitle">THINK · PLAY · REPEAT</p>
 
-    <p class="status" id="status">Player X's turn</p>
+      <p class="status" id="status">Player X's turn</p>
 
-    <div class="board" id="board">
-      <button class="cell" data-index="0"></button>
-      <button class="cell" data-index="1"></button>
-      <button class="cell" data-index="2"></button>
-      <button class="cell" data-index="3"></button>
-      <button class="cell" data-index="4"></button>
-      <button class="cell" data-index="5"></button>
-      <button class="cell" data-index="6"></button>
-      <button class="cell" data-index="7"></button>
-      <button class="cell" data-index="8"></button>
-    </div>
+      <div class="board" id="board">
+        <button class="cell" data-index="0"></button>
+        <button class="cell" data-index="1"></button>
+        <button class="cell" data-index="2"></button>
+        <button class="cell" data-index="3"></button>
+        <button class="cell" data-index="4"></button>
+        <button class="cell" data-index="5"></button>
+        <button class="cell" data-index="6"></button>
+        <button class="cell" data-index="7"></button>
+        <button class="cell" data-index="8"></button>
+      </div>
 
-    <button class="restart" id="restart">Restart Game</button>
-  </main>
+      <button class="restart" id="restart">Restart Game</button>
+    </main>
 
-  <script src="script.js"></script>
-</body>
+    <script src="script.js?v=2"></script>
+  </body>
 </html>

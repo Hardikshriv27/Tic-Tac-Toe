@@ -7,8 +7,16 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark or light mode">
+    <span class="theme-toggle__icon theme-toggle__icon--sun">☀</span>
+    <span class="theme-toggle__icon theme-toggle__icon--moon">☾</span>
+    <span class="theme-toggle__knob"></span>
+  </button>
+
   <main class="game">
     <h1>Tic-Tac-Toe</h1>
+    <p class="subtitle">THINK · PLAY · REPEAT</p>
+
     <p class="status" id="status">Player X's turn</p>
 
     <div class="board" id="board">

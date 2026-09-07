@@ -1,3 +1,4 @@
+const boardElement = document.getElementById("board");
 const cells = document.querySelectorAll(".cell");
 const status = document.getElementById("status");
 const restartButton = document.getElementById("restart");
@@ -18,23 +19,28 @@ const winningCombinations = [
   [2, 4, 6],
 ];
 
-function updateStatus(text, mark = currentPlayer) {
-  status.textContent = text;
+function updateStatus(message, mark = currentPlayer) {
+  status.textContent = message;
   status.dataset.mark = mark;
 }
 
-function handleCellClick(event) {
-  const cell = event.currentTarget;
+function handleBoardClick(event) {
+  const cell = event.target.closest(".cell");
+
+  // Click was not on one of the 9 cells
+  if (!cell) return;
+
   const index = Number(cell.dataset.index);
 
-  // Ignore clicks after the game ends
+  // Game has already ended
   if (!gameActive) return;
 
-  // Ignore already occupied cells
+  // Cell is already occupied
   if (board[index] !== "") return;
 
-  // Place the move
+  // Place move
   board[index] = currentPlayer;
+
   cell.textContent = currentPlayer;
   cell.dataset.mark = currentPlayer;
 
@@ -42,12 +48,14 @@ function handleCellClick(event) {
 }
 
 function checkGameResult() {
-  // Check for winner
+  // Check winner
   for (const [a, b, c] of winningCombinations) {
     if (board[a] !== "" && board[a] === board[b] && board[a] === board[c]) {
       gameActive = false;
 
-      updateStatus(`Player ${board[a]} wins!`, board[a]);
+      const winner = board[a];
+
+      updateStatus(`Player ${winner} wins!`, winner);
 
       cells[a].classList.add("win");
       cells[b].classList.add("win");
@@ -57,17 +65,16 @@ function checkGameResult() {
     }
   }
 
-  // IMPORTANT:
-  // Draw is possible ONLY when all 9 cells are filled.
-  const filledCells = board.filter((cell) => cell !== "").length;
+  // Draw ONLY after all 9 cells are occupied
+  const movesPlayed = board.filter((value) => value !== "").length;
 
-  if (filledCells === 9) {
+  if (movesPlayed === 9) {
     gameActive = false;
     updateStatus("It's a draw!", "");
     return;
   }
 
-  // Continue the game
+  // Continue game
   currentPlayer = currentPlayer === "X" ? "O" : "X";
 
   updateStatus(`Player ${currentPlayer}'s turn`, currentPlayer);
@@ -78,22 +85,22 @@ function restartGame() {
   currentPlayer = "X";
   gameActive = true;
 
-  updateStatus("Player X's turn", "X");
-
   cells.forEach((cell) => {
     cell.textContent = "";
-    delete cell.dataset.mark;
     cell.classList.remove("win");
+    delete cell.dataset.mark;
 
-    // Make absolutely sure every cell can receive clicks
+    // IMPORTANT:
+    // Never disable the cells.
     cell.disabled = false;
   });
+
+  updateStatus("Player X's turn", "X");
 }
 
-// Attach click handlers to all 9 cells
-cells.forEach((cell) => {
-  cell.addEventListener("click", handleCellClick);
-});
+// One click listener for the entire board.
+// This guarantees every cell is handled consistently.
+boardElement.addEventListener("click", handleBoardClick);
 
 // Restart
 restartButton.addEventListener("click", restartGame);
@@ -109,6 +116,7 @@ function applyTheme(theme) {
 }
 
 const savedTheme = localStorage.getItem("ttt-theme") || "dark";
+
 applyTheme(savedTheme);
 
 if (themeToggle) {

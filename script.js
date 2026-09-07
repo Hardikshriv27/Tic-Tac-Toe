@@ -15,83 +15,106 @@ const winningCombinations = [
   [1, 4, 7],
   [2, 5, 8],
   [0, 4, 8],
-  [2, 4, 6]
+  [2, 4, 6],
 ];
+
+function updateStatus(text, mark = currentPlayer) {
+  status.textContent = text;
+  status.dataset.mark = mark;
+}
 
 function handleCellClick(event) {
   const cell = event.currentTarget;
   const index = Number(cell.dataset.index);
 
-  if (board[index] !== "" || !gameActive) return;
+  // Ignore clicks after the game ends
+  if (!gameActive) return;
 
+  // Ignore already occupied cells
+  if (board[index] !== "") return;
+
+  // Place the move
   board[index] = currentPlayer;
   cell.textContent = currentPlayer;
   cell.dataset.mark = currentPlayer;
-  cell.disabled = true;
 
   checkGameResult();
 }
 
 function checkGameResult() {
+  // Check for winner
   for (const [a, b, c] of winningCombinations) {
-    if (
-      board[a] &&
-      board[a] === board[b] &&
-      board[a] === board[c]
-    ) {
-      status.textContent = `Player ${board[a]} wins!`;
-      status.dataset.mark = board[a];
+    if (board[a] !== "" && board[a] === board[b] && board[a] === board[c]) {
       gameActive = false;
-      [a, b, c].forEach((i) => cells[i].classList.add("win"));
-      cells.forEach((cell) => (cell.disabled = true));
+
+      updateStatus(`Player ${board[a]} wins!`, board[a]);
+
+      cells[a].classList.add("win");
+      cells[b].classList.add("win");
+      cells[c].classList.add("win");
+
       return;
     }
   }
 
-  if (!board.includes("")) {
-    status.textContent = "It's a draw!";
-    status.dataset.mark = "";
+  // IMPORTANT:
+  // Draw is possible ONLY when all 9 cells are filled.
+  const filledCells = board.filter((cell) => cell !== "").length;
+
+  if (filledCells === 9) {
     gameActive = false;
+    updateStatus("It's a draw!", "");
     return;
   }
 
+  // Continue the game
   currentPlayer = currentPlayer === "X" ? "O" : "X";
-  status.textContent = `Player ${currentPlayer}'s turn`;
-  status.dataset.mark = currentPlayer;
+
+  updateStatus(`Player ${currentPlayer}'s turn`, currentPlayer);
 }
 
 function restartGame() {
   board = ["", "", "", "", "", "", "", ""];
   currentPlayer = "X";
   gameActive = true;
-  status.textContent = "Player X's turn";
-  status.dataset.mark = "X";
+
+  updateStatus("Player X's turn", "X");
 
   cells.forEach((cell) => {
     cell.textContent = "";
-    cell.disabled = false;
     delete cell.dataset.mark;
     cell.classList.remove("win");
+
+    // Make absolutely sure every cell can receive clicks
+    cell.disabled = false;
   });
 }
 
+// Attach click handlers to all 9 cells
 cells.forEach((cell) => {
   cell.addEventListener("click", handleCellClick);
 });
 
+// Restart
 restartButton.addEventListener("click", restartGame);
-status.dataset.mark = "X";
 
+// Theme
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem("ttt-theme", theme);
-  themeToggle.setAttribute("aria-pressed", theme === "dark");
+
+  if (themeToggle) {
+    themeToggle.setAttribute("aria-pressed", theme === "dark");
+  }
 }
 
 const savedTheme = localStorage.getItem("ttt-theme") || "dark";
 applyTheme(savedTheme);
 
-themeToggle.addEventListener("click", () => {
-  const current = document.documentElement.getAttribute("data-theme");
-  applyTheme(current === "dark" ? "light" : "dark");
-});
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+
+    applyTheme(currentTheme === "dark" ? "light" : "dark");
+  });
+}

@@ -1,10 +1,8 @@
-````markdown
-# Tic-Tac-Toe
+Tic-Tac-Toe
 
 A simple, responsive, and modern Tic-Tac-Toe game built with vanilla HTML, CSS, and JavaScript.
 
-## Features
-
+ Features
 - 🎮 Two-player gameplay
 - ❌ X and O turn-based system
 - 🏆 Automatic win detection
@@ -15,11 +13,10 @@ A simple, responsive, and modern Tic-Tac-Toe game built with vanilla HTML, CSS, 
 - ✨ Modern glassmorphism UI
 - 🚫 No frameworks or external dependencies
 
-## Live Demo
-
+Live Demo:-
 👉 https://hardikshriv27.github.io/Tic-Tac-Toe/?v=999
 
-## Run Locally
+ Run Locally
 
 1. Clone the repository:
 
@@ -37,25 +34,21 @@ A simple, responsive, and modern Tic-Tac-Toe game built with vanilla HTML, CSS, 
 * CSS3
 * JavaScript
 
-## Project Structure
+# Project Structure
 
-```text
 Tic-Tac-Toe/
 ├── index.html
 ├── style.css
 ├── script.js
 └── README.md
-```
 
-## GitHub Pages
+# GitHub Pages
 
 The project is deployed using GitHub Pages.
 
-**Settings → Pages → Deploy from branch → main → / (root)**
+Settings → Pages → Deploy from branch → main → / (root)**
 
-## License
+# License
 
 This project is open-source and available for learning and personal use.
 
-```
-```
